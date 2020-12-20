@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacation app</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+<div class="container">
+    <div th:insert="fragments/navbar.html"></div>
+    <br />
+
+    <h3>Create new leave</h3>
+
+    <form action="#" th:action="@{create}" th:object="${leave}" method="post">
+        <ul th:if="${#fields.hasErrors('*')}">
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+        </ul>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>Start date</td>
+                <td><input type="text" class="datepicker"  th:field="*{startDate}" /></td>
+            </tr>
+            <tr>
+                <td>End date</td>
+                <td><input type="text" class="datepicker" th:field="*{endDate}" /></td>
+            </tr>
+            <tr>
+                <td>Type</td>
+                <td>
+                    <select th:field="*{leaveType}">
+                        <option th:each="leaveType : ${allLeaveTypes}"
+                                th:value="${leaveType.id}"
+                                th:text="${leaveType.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" class="btn btn-primary" value="Submit" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script th:inline="javascript">
+  $(function() {
+    $(".datepicker").datepicker({
+         dateFormat: "yy-mm-dd"
+    });
+  });
+  </script>
+
+</body>
+</html>
