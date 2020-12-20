@@ -29,10 +29,6 @@ public class LeaveService {
     public int getTotalLeaveDaysByLeaveType(List<Leave> leaves, Long leaveTypeId){
         int totalLeaveDays = 0;
 
-//        int total = leaves.stream()
-//                .filter(l -> l.getId().equals(leaveTypeId))
-//                .reduce();
-
         for(Leave leave: leaves){
             if(leave.getLeaveType().getId() == leaveTypeId){
                 totalLeaveDays += (int) DAYS.between(leave.getStartDate().toLocalDate(), leave.getEndDate().toLocalDate()) + 1;
